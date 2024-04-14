@@ -5,8 +5,8 @@ import RightArrow from "@/assets/right-arrow.svg";
 
 const Navbar = () => {
   return (
-    <nav className="py-4 bg-background -mt-[2.5rem] border-b-2 border-primary border-opacity-1">
-      <div className=" mx-auto flex justify-between items-center">
+    <nav className="py-4 bg-background border-b-2 border-primary border-opacity-1">
+      <div className=" mx-auto flex justify-between items-center max-w-[90rem] px-4">
         <div className="flex items-center gap-2">
           <Logo />
           <div className="text-2xl font-bold uppercase">Trandify</div>

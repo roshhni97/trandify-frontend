@@ -13,10 +13,9 @@ import "react-image-crop/dist/ReactCrop.css";
 
 const Details = () => {
   const [crop, setCrop] = useState<Crop>();
-  console.log(crop);
+  const [onSubmit, setOnSubmit] = useState<boolean>(false);
   return (
-    <div className="flex flex-col gap-10">
-      <Navbar />
+    <div className="flex flex-col gap-5">
       <div className="flex gap-2 items-center">
         <LeftArrow />
         <h1 className="text-4xl uppercase">Add Watcher</h1>
@@ -26,31 +25,42 @@ const Details = () => {
           <div className="text-lg uppercase">Link</div>
           <Input className="w-4/6"></Input>
         </div>
-        <Button className="w-fit uppercase">Next</Button>
-        <hr className="-mx-10 opacity-30" />
-        <div className="flex flex-col gap-1">
-          <div className="text-lg uppercase">Alert for</div>
-          <Input className="w-4/6"></Input>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="text-lg uppercase">Sampling Time</div>
-          <div className="flex gap-2">
-            <Input className="w-24"></Input>
-            <ComboboxDemo />
-          </div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="text-lg uppercase">Snapshot</div>
-          <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-            <Image src={test} alt="test" width={1000} height={1000} />
-          </ReactCrop>
-        </div>
-        <div className="flex gap-2">
-          <Button className="w-fit uppercase" variant="ghost">
-            Back
+
+        {onSubmit ? (
+          <Button
+            className="w-fit uppercase"
+            onClick={() => setOnSubmit(false)}
+          >
+            Next
           </Button>
-          <Button className="w-fit uppercase">Create Watcher</Button>
-        </div>
+        ) : (
+          <>
+            <hr className="-mx-10 opacity-30" />
+            <div className="flex flex-col gap-1">
+              <div className="text-lg uppercase">Alert for</div>
+              <Input className="w-4/6"></Input>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="text-lg uppercase">Sampling Time</div>
+              <div className="flex gap-2">
+                <Input className="w-24"></Input>
+                <ComboboxDemo />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="text-lg uppercase">Snapshot</div>
+              <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
+                <Image src={test} alt="test" width={1000} height={1000} />
+              </ReactCrop>
+            </div>
+            <div className="flex gap-2">
+              <Button className="w-fit uppercase" variant="ghost">
+                Back
+              </Button>
+              <Button className="w-fit uppercase">Create Watcher</Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

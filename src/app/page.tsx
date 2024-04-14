@@ -1,4 +1,4 @@
-import Navbar from "@/components/common/Navbar";
+import Navbar from "@/components/common/NavbarHome";
 import HeroSection from "@/components/home/hero";
 
 const Home = () => {

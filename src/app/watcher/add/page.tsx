@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Navbar from "@/components/common/Navbar";
 import LeftArrow from "@/assets/left-arrow.svg";
 import { Input } from "@/components/ui/input";
@@ -7,8 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ComboboxDemo } from "@/components/ui/comboBox";
 import test from "@/assets/test.png";
 import Image from "next/image";
+import ReactCrop, { type Crop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 const Details = () => {
+  const [crop, setCrop] = useState<Crop>();
+  console.log(crop);
   return (
     <div className="flex flex-col gap-10">
       <Navbar />
@@ -36,7 +41,9 @@ const Details = () => {
         </div>
         <div className="flex flex-col gap-1">
           <div className="text-lg uppercase">Snapshot</div>
-          <Image src={test} alt="test" width={1000} height={1000} />
+          <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
+            <Image src={test} alt="test" width={1000} height={1000} />
+          </ReactCrop>
         </div>
         <div className="flex gap-2">
           <Button className="w-fit uppercase" variant="ghost">

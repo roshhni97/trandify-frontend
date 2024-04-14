@@ -68,7 +68,7 @@ const Details = () => {
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-4">
                 <div className="opacity-40 uppercase">Snapshot:</div>
-                <Image src={test} alt="test" />
+                <Image src={test} alt="test" height={250} />
               </div>
               <div className="flex flex-col gap-4">
                 <div className="opacity-40 uppercase">Stats:</div>

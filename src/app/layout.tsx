@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/common/NavbarHome";
 
 const fonts = Share_Tech_Mono({
   weight: "400",

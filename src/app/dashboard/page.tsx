@@ -14,7 +14,7 @@ export default function Page() {
                 <div className="col-span-2 bg-[#0E1A1E] p-8 border border-[#2E5050]">
                     <BarChartComp />
                 </div>
-                <Watchers className="col-span-3 bg-[#0E1A1E] px-8 order border-[#2E5050]" />
+                <Watchers className="col-span-3 bg-[#0E1A1E] p-8 order border-[#2E5050]" />
             </div>
 
         </div>

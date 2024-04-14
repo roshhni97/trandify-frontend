@@ -3,7 +3,7 @@ import HeroSection from "@/components/home/hero";
 
 const Home = () => {
   return (
-    <div className="h-full">
+    <div className="">
       <Navbar />
       <HeroSection />
     </div>

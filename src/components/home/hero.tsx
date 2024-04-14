@@ -2,10 +2,20 @@ import { Button } from "@/components/ui/button";
 import RightTopArrow from "@/assets/right-top-arrow.svg";
 import VertexAI from "@/assets/vertex-ai.svg";
 import Gemini from "@/assets/gemini.svg";
+import image from "@/assets/image.png";
+import Image from "next/image";
 
 const HeroSection = () => {
   return (
     <div className="h-full pt-32">
+      {/* <Image
+        src={image}
+        alt="Hero Image"
+        width={500}
+        height={500}
+        layout="fixed"
+        className="absolute bottom-0 right-0 z-0"
+      /> */}
       <div className="flex flex-col gap-20 ">
         <div className="flex flex-col gap-5 w-[60%]">
           <div className="text-7xl uppercase">

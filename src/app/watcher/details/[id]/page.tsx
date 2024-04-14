@@ -5,7 +5,7 @@ import LeftArrow from "@/assets/left-arrow.svg";
 import { Switch } from "@/components/ui/switch";
 import test from "@/assets/test.png";
 import Image from "next/image";
-import { title } from "process";
+import { Button } from "@/components/ui/button";
 
 const TableData = [
   {
@@ -56,30 +56,38 @@ const Details = () => {
         <h1 className="text-4xl uppercase">Watcher Details</h1>
       </div>
       <div className="bg-[#0E1A1E] w-full border-2 p-10 border-[#2E5050]">
-        <table>
-          <tbody className="">
-            {TableData.map((data, index) => (
-              <Row key={index} title={data.title} value={data.value} />
-            ))}
-          </tbody>
-        </table>
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-4">
-            <div className="opacity-40 uppercase">Snapshot:</div>
-            <Image src={test} alt="test" />
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="opacity-40 uppercase">Stats:</div>
-            <div>
-              <li className="uppercase">
-                ✅ {Stats.successfulHits} Successful hits
-              </li>
-              <li className="uppercase">🚨 {Stats.failedHits} Failed hits</li>
-              <li className="uppercase">
-                🚨 {Stats.successfulHits} Alerts Sent
-              </li>
+        <div className="flex w-full justify-between">
+          <div>
+            <table>
+              <tbody className="">
+                {TableData.map((data, index) => (
+                  <Row key={index} title={data.title} value={data.value} />
+                ))}
+              </tbody>
+            </table>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-4">
+                <div className="opacity-40 uppercase">Snapshot:</div>
+                <Image src={test} alt="test" />
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="opacity-40 uppercase">Stats:</div>
+                <div>
+                  <li className="uppercase">
+                    ✅ {Stats.successfulHits} Successful hits
+                  </li>
+                  <li className="uppercase">
+                    🚨 {Stats.failedHits} Failed hits
+                  </li>
+                  <li className="uppercase">
+                    🚨 {Stats.successfulHits} Alerts Sent
+                  </li>
+                </div>
+              </div>
+              <div>CHART</div>
             </div>
           </div>
+          <Button className="uppercase">Edit</Button>
         </div>
       </div>
     </div>

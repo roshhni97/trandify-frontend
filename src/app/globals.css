@@ -69,6 +69,7 @@
 body {
   height: 100vh;
   background-image: url("/bg.svg");
+  padding: 3rem max(1rem, calc(50vw - 45rem));
 }
 
 @layer base {

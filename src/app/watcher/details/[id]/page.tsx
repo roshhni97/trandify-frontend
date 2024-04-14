@@ -49,8 +49,7 @@ const Row = ({ title, value }: { title: string; value: string }) => {
 
 const Details = () => {
   return (
-    <div className="flex flex-col gap-10">
-      <Navbar />
+    <div className="flex flex-col gap-5">
       <div className="flex gap-2 items-center">
         <LeftArrow />
         <h1 className="text-4xl uppercase">Watcher Details</h1>

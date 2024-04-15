@@ -6,30 +6,77 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ReactCrop, { type Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { useToast } from "@/components/ui/use-toast";
 
 const Details = () => {
-  const [crop, setCrop] = useState<Crop>();
-  const [onSubmit, setOnSubmit] = useState<boolean>(false);
+  const { toast } = useToast();
 
+  const [link, setLink] = useState<string>("");
+  const [onSubmit, setOnSubmit] = useState<boolean>(true);
+  const [crop, setCrop] = useState<Crop>();
+  const [alert, setAlert] = useState<string>("");
   const [value, setValue] = useState<number>(10);
+
+  const handleSubmit = () => {
+    if (!link) {
+      toast({
+        title: "Error",
+        description: "Please enter a link",
+      });
+      return;
+    }
+
+    setOnSubmit(false);
+    toast({
+      title: "Watcher Added",
+      description: "You have successfully added a watcher",
+    });
+  };
+
+  const handleCreateWatcher = () => {
+    if (!link || !alert) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+      });
+      return;
+    }
+
+    if (!crop) {
+      toast({
+        title: "Error",
+        description: "Please select a snapshot",
+      });
+      return;
+    }
+
+    toast({
+      title: "Watcher Created",
+      description: "You have successfully created a watcher",
+    });
+  };
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex gap-2 items-center">
-        <LeftArrow />
+        <div>
+          <LeftArrow />
+        </div>
         <h1 className="text-4xl uppercase">Add Watcher</h1>
       </div>
       <div className="bg-[#0E1A1E] w-full border-2 p-10 border-[#2E5050] flex flex-col gap-5">
         <div className="flex flex-col gap-1">
           <div className="text-lg uppercase">Link</div>
-          <Input className="w-4/6" />
+          <Input
+            className="w-4/6"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            disabled={!onSubmit}
+          />
         </div>
 
         {onSubmit ? (
-          <Button
-            className="w-fit uppercase"
-            onClick={() => setOnSubmit(false)}
-          >
+          <Button className="w-fit uppercase" onClick={handleSubmit}>
             Next
           </Button>
         ) : (
@@ -37,7 +84,12 @@ const Details = () => {
             <hr className="-mx-10 opacity-30" />
             <div className="flex flex-col gap-1">
               <div className="text-lg uppercase">Alert for</div>
-              <Input className="w-4/6"></Input>
+              <Input
+                className="w-4/6"
+                placeholder="Spike > 50% in a day"
+                value={alert}
+                onChange={(e) => setAlert(e.target.value)}
+              />
             </div>
             <div className="flex flex-col gap-1">
               <div className="text-lg uppercase">Sampling Time</div>
@@ -47,7 +99,13 @@ const Details = () => {
                   className="w-16"
                   value={value}
                   step={5}
-                  onChange={(e) => setValue(+e.target.value)}
+                  onChange={(e) => {
+                    if (+e.target.value < 0) {
+                      setValue(0);
+                    } else {
+                      setValue(+e.target.value);
+                    }
+                  }}
                 />
                 <div className="text-lg uppercase">Minutes</div>
               </div>
@@ -74,7 +132,9 @@ const Details = () => {
               <Button className="w-fit uppercase" variant="ghost">
                 Back
               </Button>
-              <Button className="w-fit uppercase">Create Watcher</Button>
+              <Button className="w-fit uppercase" onClick={handleCreateWatcher}>
+                Create Watcher
+              </Button>
             </div>
           </>
         )}

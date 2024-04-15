@@ -7,6 +7,7 @@ const Icon = (props: SVGProps<SVGSVGElement>) => (
     height={22}
     fill="none"
     {...props}
+    className="transform hover:translate-x-[-5px] transition-all duration-200 cursor-pointer"
   >
     <path
       stroke="#DAF9F2"

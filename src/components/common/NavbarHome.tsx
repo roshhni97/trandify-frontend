@@ -3,12 +3,17 @@
 import { Button } from "@/components/ui/button";
 import Logo from "@/assets/logo.svg";
 import RightArrow from "@/assets/right-arrow.svg";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useGoogleLogin } from "@react-oauth/google";
+import useSWRMutation from "swr/mutation";
+import API_CONSTANTS from "@/utils/apiConstants";
+import { genericMutationFetcher } from "@/utils/helpers/swr.helper";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { trigger: sendToken } = useSWRMutation(API_CONSTANTS.LOGIN, genericMutationFetcher);
 
   const isHome = pathname === "/";
 
@@ -23,7 +28,27 @@ const Navbar = () => {
   };
 
   const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onSuccess: async (tokenResponse) => {
+      try {
+        console.log(tokenResponse);
+        const { data } = await sendToken({
+          type: 'post',
+          rest: [
+            {
+              code: tokenResponse.code,
+            }
+          ],
+        });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+      // router.push("/dashboard");
+    },
+    onError(errorResponse) {
+      console.log(errorResponse);
+    },
+    flow: "auth-code"
   });
 
   return (

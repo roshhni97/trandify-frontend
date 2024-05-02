@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/common/NavbarHome";
+import { Toaster } from "@/components/ui/toaster";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import config from "@/utils/config";
+import AuthProvider from "@/components/common/AuthProvider";
 
 const fonts = Share_Tech_Mono({
   weight: "400",
@@ -21,7 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fonts.className}>{children}</body>
+      <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
+        <AuthProvider>
+          <body className={fonts.className}>
+            {children}
+            <Toaster />
+          </body>
+        </AuthProvider>
+      </GoogleOAuthProvider>
     </html>
   );
 }

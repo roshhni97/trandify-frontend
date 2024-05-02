@@ -36,10 +36,6 @@ const config = {
                     DEFAULT: 'hsl(var(--destructive))',
                     foreground: 'hsl(var(--destructive-foreground))',
                 },
-                success: {
-                    DEFAULT: 'hsl(var(--success))',
-                    foreground: 'hsl(var(--success-foreground))',
-                },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',
                     foreground: 'hsl(var(--muted-foreground))',
@@ -76,6 +72,14 @@ const config = {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
             },
+            translate: {
+                '-5': '-5px',
+            },
+        },
+    },
+    variants: {
+        extend: {
+            translate: ['hover'],
         },
     },
     plugins: [require('tailwindcss-animate')],

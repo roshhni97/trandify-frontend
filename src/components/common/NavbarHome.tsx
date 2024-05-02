@@ -5,6 +5,7 @@ import Logo from "@/assets/logo.svg";
 import RightArrow from "@/assets/right-arrow.svg";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -21,6 +22,10 @@ const Navbar = () => {
     borderOpacity: 0.3,
   };
 
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+  });
+
   return (
     <nav className="py-4">
       <div className=" mx-auto flex justify-between items-center">
@@ -30,7 +35,7 @@ const Navbar = () => {
             <div className="text-2xl font-bold uppercase">Trandify</div>
           </div>
         </Link>
-        <Button className="uppercase gap-2">
+        <Button className="uppercase gap-2" onClick={() => login()}>
           Login
           <RightArrow />
         </Button>

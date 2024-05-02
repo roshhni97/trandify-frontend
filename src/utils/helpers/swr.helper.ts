@@ -21,6 +21,3 @@ export const genericMutationFetcher = async (
 ) => {
   return await axios[arg.type](url, ...(arg.rest || []));
 };
-
-// 237191861962-576musp72v169vjbe0jum2dpusd233p0.apps.googleusercontent.com
-// GOCSPX - hEE8Z7KL3G8e4 - gDoKAgs08hxAan;

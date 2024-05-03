@@ -1,6 +1,5 @@
 class APIConstants {
-    BASE_URL =
-        'http://ec2-43-205-67-230.ap-south-1.compute.amazonaws.com:8000/api/v1';
+    BASE_URL = 'https://api.trendifyapp.tech/api/v1';
 
     // Controllers
     AUTH = this.BASE_URL + '/auth';

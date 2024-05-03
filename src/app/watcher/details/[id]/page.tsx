@@ -2,7 +2,7 @@
 
 import LeftArrow from "@/assets/left-arrow.svg";
 import { Switch } from "@/components/ui/switch";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import ReactCrop, { type Crop } from "react-image-crop";
@@ -18,11 +18,6 @@ const Details = () => {
   const { toast } = useToast();
   const { id } = useParams();
   const { errorFetchingWatcherData, isWatcherDataLoading, watcherData: data } = useWatcherById(id.toString());
-
-  const image = useMemo(() => {
-    if (!data?.snapshot) return;
-    return `data:image/png;base64,${data.snapshot}`;
-  }, [data]);
 
   const [currentRect, setCurrentRect] = useState<{
     width: number;
@@ -107,7 +102,7 @@ const Details = () => {
                   }}
                   disabled
                 >
-                  <img id="image" src={image} alt="test" />
+                  <img id="image" src={`https://api.trendifyapp.tech/api/v1/watchers/snapshots/preview/${data?.snapshot}`} alt="test" />
                 </ReactCrop>
               </div>
               {/* <div className="flex flex-col gap-4">

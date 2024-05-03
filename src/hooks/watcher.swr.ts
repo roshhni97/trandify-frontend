@@ -17,3 +17,16 @@ export function useWatcher() {
         errorFetchingWatchersData: error,
     };
 }
+
+export function useWatcherById(id: string) {
+    const { data, error, isLoading } = useSWR(
+        [API_CONSTANTS.GET_WATCHER(id), 'get'],
+        genericAPIFetcher
+    );
+
+    return {
+        watcherData: data?.data as IWatcher | undefined,
+        isWatcherDataLoading: isLoading as boolean,
+        errorFetchingWatcherData: error,
+    };
+}

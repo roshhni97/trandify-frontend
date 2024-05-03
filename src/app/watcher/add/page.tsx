@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import ReactCrop, { type Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { useToast } from "@/components/ui/use-toast";
-
-const imgUrl =
-  "https://cdn.discordapp.com/attachments/1228726876013596756/1229053715215028386/661bd11286865d45cbfca821.png?ex=662e4878&is=661bd378&hm=751183956caf2f167b9dd2b43b48dd0df940cf5ac1e42056c0983b3da8cd4243&";
-
+import useSWRMutation from "swr/mutation";
+import API_CONSTANTS from "@/utils/apiConstants";
+import { genericMutationFetcher } from "@/utils/helpers/swr.helper";
+import { useRouter } from "next/router";
   
 const Details = () => {
   const { toast } = useToast();
@@ -20,6 +20,12 @@ const Details = () => {
   const [crop, setCrop] = useState<Crop>();
   const [alert, setAlert] = useState<string>("");
   const [value, setValue] = useState<number>(10);
+  const [imageId, setImageId] = useState<string>("");
+
+  const router = useRouter();
+
+  const { trigger: createWatcher, isMutating: isCreateWatcherLoading } = useSWRMutation(API_CONSTANTS.CREATE_WATCHER, genericMutationFetcher)
+  const { trigger: renderImage, isMutating: isRenderImageLoading } = useSWRMutation(API_CONSTANTS.RENDER_IMAGE, genericMutationFetcher)
 
   const handleSubmit = () => {
     if (!link) {
@@ -30,10 +36,27 @@ const Details = () => {
       return;
     }
 
-    setOnSubmit(false);
-    toast({
-      title: "Watcher Added",
-      description: "You have successfully added a watcher",
+    renderImage({
+      type: "post",
+      rest: [
+        {
+          url: link,
+        },
+      ],
+    }).then((res) => {
+      console.log(res);
+      setImageId(res.data.snapshot);
+      setOnSubmit(false);
+      toast({
+        title: "Watcher Added",
+        description: "You have successfully added a watcher",
+      });
+    }).catch((err) => {
+      console.log(err);
+      toast({
+        title: "Error",
+        description: "Please enter a valid link",
+      });
     });
   };
 
@@ -54,10 +77,38 @@ const Details = () => {
       return;
     }
 
-    toast({
-      title: "Watcher Created",
-      description: "You have successfully created a watcher",
+    createWatcher({
+      type: "post",
+      rest: [
+        {
+          url: link,
+          alertCondition: alert,
+          samplePeriod: value,
+          snapshot: imageId,
+          isActive: true,
+          samplingFrame: {
+            top: crop.y,
+            left: crop.x,
+            width: crop.width,
+            height: crop.height,
+          }
+        },
+      ],
+    }).then((res) => {
+      console.log(res);
+      toast({
+        title: "Watcher Created",
+        description: "You have successfully created a watcher",
+      });
+      router.push("/watcher/details");
+    }).catch((err) => {
+      console.log(err);
+      toast({
+        title: "Error",
+        description: "Please enter a valid link",
+      });
     });
+
   };
 
   return (
@@ -124,7 +175,7 @@ const Details = () => {
                   position: "relative",
                 }}
               >
-                <img src={imgUrl} alt="test" />
+                <img src={`https://api.trendifyapp.tech/api/v1/watchers/snapshots/preview/${imageId}`} alt="test" />
               </ReactCrop>
             </div>
             <div className="flex gap-2">

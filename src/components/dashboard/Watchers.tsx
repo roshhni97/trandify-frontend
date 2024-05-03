@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Button } from "../ui/button";
@@ -20,7 +22,7 @@ const Watchers: FC<WatcherProps> = ({ className }) => {
                 <h1 className="text-3xl">YOUR WATCHERS</h1>
                 <Button variant="default" className="uppercase text-lg">Add Watcher <PlusIcon /></Button>
             </div>
-            {watchersData.map((item) =>
+            {watchersData && watchersData.map((item) =>
                 <div key={item.url} className="flex justify-between items-center py-4">
                     <div>
                         <a href={`http://${item.url}`} target="_blank" rel="noopener noreferrer" className="group">

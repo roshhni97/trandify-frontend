@@ -25,12 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
-        <AuthProvider>
+        {/* <AuthProvider> */}
           <body className={fonts.className}>
             {children}
             <Toaster />
           </body>
-        </AuthProvider>
+        {/* </AuthProvider> */}
       </GoogleOAuthProvider>
     </html>
   );
